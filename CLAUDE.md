@@ -81,6 +81,37 @@ npx shadcn@latest add "[component-url-from-21st.dev]"
 
 Always check 21st.dev before writing components from scratch.
 
+## CRITICAL: Actually USE Installed Components
+
+**DO NOT install 21st.dev components and then write custom ones instead.**
+
+After installing a component with `npx shadcn@latest add`, you MUST:
+
+1. **Import it** in the page/layout that needs it:
+   ```tsx
+   import { FloatingNav } from "@/components/ui/floating-navbar"
+   import { AnimatedTestimonials } from "@/components/ui/animated-testimonials"
+   ```
+
+2. **Replace any hand-written version** of the same component type. If you installed a navbar component, DELETE your custom navbar and use the installed one.
+
+3. **Read the component file** (`components/ui/[name].tsx`) to understand its props, then pass the correct data:
+   ```tsx
+   // Read the component to see what props it expects
+   // Then wire it in with real data:
+   <FloatingNav navItems={[
+     { name: "Features", link: "#features" },
+     { name: "Pricing", link: "#pricing" },
+   ]} />
+   ```
+
+4. **Check for required config** — some components need:
+   - Image domains in `next.config.js` (for components using `next/image`)
+   - Additional dependencies (check imports in the component file)
+   - Tailwind config extensions (check for custom classes)
+
+**The rule: If a 21st.dev component is installed in `components/ui/`, it MUST be imported and used. No orphaned installs.**
+
 ## Typography
 Use `next/font/google` for all fonts (auto-optimized, self-hosted).
 
